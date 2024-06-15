@@ -1,2 +1,4 @@
 tmp/
 **.sum
+
+old.go
