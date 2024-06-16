@@ -55,7 +55,7 @@ func handleMessages() {
 		for client := range clients[msg.RoomID] {
 			err := client.WriteJSON(msg)
 			if err != nil {
-				log.Println("error %v", err)
+				log.Printf("error %v", err)
 				client.Close()
 				delete(clients[msg.RoomID], client)
 			}
@@ -67,7 +67,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 
 	roomID := r.PathValue("roomID")
 
-	log.Println("RoomID %s has been created.", roomID)
+	log.Printf("RoomID %s has been created.", roomID)
 
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -88,7 +88,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		err := ws.ReadJSON(&msg)
 
 		if err != nil {
-			log.Println("error %v", err)
+			log.Printf("error %v", err)
 			delete(clients[roomID], ws)
 			break
 		}
